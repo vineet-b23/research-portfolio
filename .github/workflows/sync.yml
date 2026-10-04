@@ -1,0 +1,54 @@
+name: Sync Notion Research Logs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # daily, midnight UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: notion-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Sync from Notion
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: node sync-notion.js
+
+      - name: Commit and push changes
+        run: |
+          # Stage generated files only (root-level *.html; also stages deletions)
+          git add -A -- data.json .sync-manifest.json
+          git add -A -- ':(glob)*.html' 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: auto-sync research logs from Notion"
+          git pull --rebase origin main
+          git push origin HEAD:main

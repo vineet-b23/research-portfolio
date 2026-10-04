@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "fl-for-iot",
+    "url": "./fl-for-iot.html",
+    "title": "FL for IoT",
+    "status": "On-going",
+    "abstract": "",
+    "topics": [],
+    "link": null,
+    "bibtex": "",
+    "timeline": [
+      {
+        "type": "paragraph",
+        "text": "2023-01-09: Laid out plan",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      }
+    ],
+    "created": "2026-10-04T10:54:00.000Z",
+    "updated": "2026-10-04T11:13:00.000Z"
+  },
+  {
+    "slug": "rag-optimization",
+    "url": "./rag-optimization.html",
+    "title": "RAG Optimization",
+    "status": "Published",
+    "abstract": "",
+    "topics": [],
+    "link": null,
+    "bibtex": "",
+    "timeline": [
+      {
+        "type": "paragraph",
+        "text": "2026-10-04: Drafted abstract and set up project repository.",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2025-06-06: Laid out plan for the research work.",
+        "depth": 0
+      }
+    ],
+    "created": "2026-10-04T05:17:00.000Z",
+    "updated": "2026-10-04T11:32:00.000Z"
+  }
+]

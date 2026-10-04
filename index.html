@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Portfolio</title>
+  <meta name="description" content="Investigating scalable attention mechanisms and multi-modal representation learning. Documenting the journey from concept to publication.">
+  <meta property="og:title" content="Research Portfolio">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Icons: Phosphor (regular weight, used as <i class="ph ph-name">) -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+
+  <!-- Global design system -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Page-specific layout. Safe to move into styles.css later. -->
+  <style>
+    /* ---------- Hero ---------- */
+    .hero {
+      padding-top: clamp(3.5rem, 11vw, 8rem);
+      padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 12vw, 9rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+    }
+    .hero-sub {
+      max-width: 46ch;
+      margin-top: var(--space-5);
+    }
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) 0;
+      margin-top: var(--space-6);
+      padding: 0;
+      list-style: none;
+    }
+    .hero-metrics li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .hero-metrics li + li {
+      margin-left: var(--space-6);
+      padding-left: var(--space-6);
+      border-left: 1px solid var(--primary-navy);
+    }
+    .metric-number {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--primary-navy);
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 479.98px) {
+      .hero-metrics { flex-direction: column; }
+      .hero-metrics li + li {
+        margin-left: 0;
+        padding-left: 0;
+        padding-top: var(--space-3);
+        border-left: 0;
+        border-top: 1px solid var(--primary-navy);
+      }
+    }
+
+    /* ---------- Bento grid ---------- */
+    #work { padding-block: var(--space-4) clamp(3rem, 8vw, 5rem); }
+
+    .bento-card { min-height: 15rem; }
+    .bento-card__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .bento-card__title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--primary-navy);
+    }
+    .bento-card--navy .bento-card__title { color: #FFFFFF; }
+
+    .bento-card__arrow {
+      flex: none;
+      font-size: 1.25rem;
+      color: var(--primary-navy);
+      transition: transform var(--dur) var(--ease);
+    }
+    .bento-card--navy .bento-card__arrow { color: #FFFFFF; }
+    .bento-card:focus-within .bento-card__arrow { transform: translate(2px, -2px); }
+    @media (hover: hover) and (pointer: fine) {
+      .bento-card:hover .bento-card__arrow { transform: translate(2px, -2px); }
+    }
+
+    .bento-count {
+      margin-top: auto;               /* number + caption sit at the bottom of the card */
+      padding-top: var(--space-5);
+      font-size: clamp(3.5rem, 9vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Utility: subtle gold accent (tab on the card edge + gold underline on the number) */
+    .bento-card--gold::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: clamp(1.25rem, 3vw, 1.75rem);
+      width: 3rem;
+      height: 5px;
+      background: var(--accent-gold);
+      border-radius: 0 0 6px 6px;
+    }
+    .bento-card--gold .bento-count {
+      text-decoration: underline;
+      text-decoration-color: var(--accent-gold);
+      text-decoration-thickness: 0.07em;
+      text-underline-offset: 0.12em;
+    }
+
+    /* Library card: grid of icon tiles */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+      margin-top: auto;
+      padding: var(--space-4) 0 0;
+      list-style: none;
+    }
+    .icon-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .icon-tile i {
+      font-size: 1.75rem;
+      transition: color var(--dur) var(--ease);
+    }
+    .bento-card--navy:focus-within .icon-tile i { color: var(--accent-gold); }
+    @media (hover: hover) and (pointer: fine) {
+      .bento-card--navy:hover .icon-tile i { color: var(--accent-gold); }
+    }
+
+    /* Locked card: visual only, no hover lift */
+    .bento-card--locked {
+      justify-content: space-between;
+      background:
+        repeating-linear-gradient(135deg, rgba(var(--navy-rgb), 0.05) 0 10px, transparent 10px 20px),
+        var(--bg-surface);
+      border-style: dashed;
+      border-color: var(--line-strong);
+      cursor: default;
+    }
+    .bento-card--locked:hover,
+    .bento-card--locked:focus-within {
+      transform: none;
+      box-shadow: none;
+      border-color: var(--line-strong);
+    }
+    .lock-badge {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      background: var(--bg-main);
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      font-size: 1.5rem;
+      color: var(--primary-navy);
+    }
+
+    /* ---------- Footer additions ---------- */
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-link i { font-size: 1.15em; }
+    .footer-col > p:not(.footer-label) { color: var(--text-muted); font-size: var(--fs-small); }
+    .footer-form { margin-top: var(--space-3); }
+    .footer-form .footer-input { flex-basis: 140px; }
+    .footer-submit {
+      flex: none;
+      width: 44px;
+      padding: 0;
+    }
+    .footer-submit svg { width: 20px; height: 20px; }
+
+    @media (max-width: 479.98px) {
+      /* Keeps the longest word on one line on very small phones */
+      .footer-headline { font-size: clamp(2rem, 10.5vw, 3rem); }
+    }
+    @media (max-width: 767.98px) {
+      .footer-col + .footer-col {
+        padding-top: var(--space-5);
+        border-top: 1px solid var(--primary-navy);
+      }
+    }
+    @media (min-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr 1.4fr; gap: 0; }
+      .footer-col { padding-inline: var(--space-6); }
+      .footer-col:first-child { padding-left: 0; }
+      .footer-col:last-child { padding-right: 0; }
+      .footer-col + .footer-col { border-left: 1px solid var(--primary-navy); }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Header & navigation ===== -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-logo" href="./">Vineet B</a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav-drawer" id="nav-drawer" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#work">Work</a></li>
+          <li><a class="nav-link" href="library.html">Library</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero container" aria-labelledby="hero-title">
+      <h1 id="hero-title">Research Portfolio</h1>
+      <p class="lead hero-sub">A documentation of my entire reserch journey from scratch till publication all in one place.</p>
+      <ul class="hero-metrics">
+        <li><span class="metric-number" id="metric-active">0</span> Active Projects</li>
+        <li><span class="metric-number" id="metric-published">0</span> Publications</li>
+      </ul>
+    </section>
+
+    <!-- ===== Bento grid ===== -->
+    <section id="work" class="bento-grid container" aria-label="Research by stage">
+
+      <!-- Card 1: On-going -->
+      <article class="bento-card">
+        <div class="bento-card__head">
+          <p class="bento-card__title"><a class="bento-card__link" href="ongoing.html">On-going</a></p>
+          <i class="ph ph-arrow-up-right bento-card__arrow" aria-hidden="true"></i>
+        </div>
+        <h2 class="bento-count" id="count-ongoing">0</h2>
+        <p class="bento-card__excerpt">Work in progress, logged as it happens.</p>
+      </article>
+
+      <!-- Card 2: In Review -->
+      <article class="bento-card">
+        <div class="bento-card__head">
+          <p class="bento-card__title"><a class="bento-card__link" href="in-review.html">In Review</a></p>
+          <i class="ph ph-arrow-up-right bento-card__arrow" aria-hidden="true"></i>
+        </div>
+        <h2 class="bento-count" id="count-review">0</h2>
+        <p class="bento-card__excerpt">Submitted and waiting on reviewers.</p>
+      </article>
+
+      <!-- Card 3: Published (gold accent utility) -->
+      <article class="bento-card bento-card--gold">
+        <div class="bento-card__head">
+          <p class="bento-card__title"><a class="bento-card__link" href="published.html">Published</a></p>
+          <i class="ph ph-arrow-up-right bento-card__arrow" aria-hidden="true"></i>
+        </div>
+        <h2 class="bento-count" id="count-published">0</h2>
+        <p class="bento-card__excerpt">Finished papers, ready to read and cite.</p>
+      </article>
+
+      <!-- Card 4: Library (distinct navy layout with icon tiles) -->
+      <article class="bento-card bento-card--navy bento-card--wide">
+        <div class="bento-card__head">
+          <p class="bento-card__title"><a class="bento-card__link" href="library.html">Artifacts &amp; Code Library</a></p>
+          <i class="ph ph-arrow-up-right bento-card__arrow" aria-hidden="true"></i>
+        </div>
+        <p class="bento-card__excerpt">Every PDF, repo and dataset behind the papers, in one place.</p>
+        <ul class="icon-grid">
+          <li class="icon-tile"><i class="ph ph-file-pdf" aria-hidden="true"></i><span>Papers</span></li>
+          <li class="icon-tile"><i class="ph ph-github-logo" aria-hidden="true"></i><span>Code</span></li>
+          <li class="icon-tile"><i class="ph ph-database" aria-hidden="true"></i><span>Datasets</span></li>
+        </ul>
+      </article>
+
+      <!-- Card 5: Future Work (locked, visual only; never populated from data.json) -->
+      <article class="bento-card bento-card--locked">
+        <div class="lock-badge"><i class="ph ph-lock" aria-hidden="true"></i></div>
+        <div>
+          <p class="bento-card__title">Future Work</p>
+          <p class="bento-card__excerpt"><span class="sr-only">Locked. </span>Classified: Concepts brewing in the lab</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- ===== Editorial footer ===== -->
+  <footer class="site-footer">
+    <div class="footer-section">
+      <div class="container">
+        <h2 class="footer-headline">LET&rsquo;S COLLABORATE</h2>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <div class="container">
+        <div class="footer-grid">
+
+          <!-- Col 1: Social. TODO: replace the placeholder profile URLs. -->
+          <div class="footer-col">
+            <p class="footer-label">Elsewhere</p>
+            <ul class="footer-nav">
+              <li><a class="footer-link" href="https://twitter.com/your-handle" target="_blank" rel="noopener noreferrer"><i class="ph ph-twitter-logo" aria-hidden="true"></i>Twitter</a></li>
+              <li><a class="footer-link" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer"><i class="ph ph-linkedin-logo" aria-hidden="true"></i>LinkedIn</a></li>
+              <li><a class="footer-link" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer"><i class="ph ph-github-logo" aria-hidden="true"></i>GitHub</a></li>
+              <li><a class="footer-link" href="https://scholar.google.com/citations?user=your-id" target="_blank" rel="noopener noreferrer"><i class="ph ph-graduation-cap" aria-hidden="true"></i>Google Scholar</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Navigation -->
+          <div class="footer-col">
+            <p class="footer-label">Explore</p>
+            <ul class="footer-nav">
+              <li><a class="footer-link" href="#work">Work</a></li>
+              <li><a class="footer-link" href="ongoing.html">On-going</a></li>
+              <li><a class="footer-link" href="in-review.html">In Review</a></li>
+              <li><a class="footer-link" href="published.html">Published</a></li>
+              <li><a class="footer-link" href="library.html">Library</a></li>
+              <li><a class="footer-link" href="about.html">About</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Email signup / contact. TODO: replace the form action with your form endpoint. -->
+          <div class="footer-col">
+            <p class="footer-label">Stay in the loop</p>
+            <p>New papers and project updates by email.</p>
+            <form class="footer-form" action="https://formspree.io/f/your-form-id" method="post">
+              <label class="sr-only" for="footer-email">Email address</label>
+              <input class="footer-input" id="footer-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+              <button class="btn footer-submit" type="submit" aria-label="Submit email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <div class="container footer-bottom">
+        <p>&copy; <span id="footer-year">2026</span> VINEET</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      'use strict';
+
+      function byId(id) { return document.getElementById(id); }
+
+      // One failing feature must never stop the others.
+      function safely(label, fn) {
+        try { fn(); } catch (err) {
+          if (window.console) { console.error('[index] ' + label + ' failed:', err); }
+        }
+      }
+
+      /* 1. Mobile menu */
+      function initMenu() {
+        var toggle = byId('nav-toggle');
+        var drawer = byId('nav-drawer');
+        if (!toggle || !drawer) { return; }
+
+        function isOpen() { return toggle.getAttribute('aria-expanded') === 'true'; }
+
+        function setOpen(open) {
+          drawer.classList.toggle('is-open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+          document.body.classList.toggle('no-scroll', open);
+        }
+
+        toggle.addEventListener('click', function () { setOpen(!isOpen()); });
+
+        // Close after choosing a link
+        drawer.addEventListener('click', function (event) {
+          var link = event.target && event.target.closest ? event.target.closest('a') : null;
+          if (link) { setOpen(false); }
+        });
+
+        // Escape closes and returns focus to the button
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && isOpen()) {
+            setOpen(false);
+            toggle.focus();
+          }
+        });
+
+        // Resizing to desktop width closes the overlay and releases the scroll lock
+        if (window.matchMedia) {
+          var desktop = window.matchMedia('(min-width: 900px)');
+          var onChange = function (event) { if (event.matches) { setOpen(false); } };
+          if (desktop.addEventListener) { desktop.addEventListener('change', onChange); }
+          else if (desktop.addListener) { desktop.addListener(onChange); }
+        }
+      }
+
+      /* 2. Header shadow once the page scrolls */
+      function initHeaderState() {
+        var header = document.querySelector('.site-header');
+        if (!header) { return; }
+        function update() { header.classList.toggle('is-scrolled', window.scrollY > 8); }
+        update();
+        window.addEventListener('scroll', update, { passive: true });
+      }
+
+      /* 3. Footer year */
+      function initYear() {
+        var el = byId('footer-year');
+        if (el) { el.textContent = String(new Date().getFullYear()); }
+      }
+
+      /* 4. Data hydration: count papers per status from data.json */
+      var STATUS_KEYS = { ongoing: 'ongoing', inreview: 'review', published: 'published' };
+
+      function statusKey(value) {
+        var normalized = String(value == null ? '' : value).toLowerCase().replace(/[^a-z]/g, '');
+        return Object.prototype.hasOwnProperty.call(STATUS_KEYS, normalized) ? STATUS_KEYS[normalized] : null;
+      }
+
+      function setText(id, value) {
+        var el = byId(id);
+        if (el) { el.textContent = String(value); }
+      }
+
+      function hydrate() {
+        if (typeof fetch !== 'function') { return; }
+
+        fetch('data.json', { cache: 'no-cache' })
+          .then(function (response) {
+            if (!response.ok) { throw new Error('HTTP ' + response.status); }
+            return response.json();
+          })
+          .then(function (data) {
+            var papers = Array.isArray(data) ? data : (data && Array.isArray(data.papers) ? data.papers : null);
+            if (!papers) { throw new Error('data.json does not contain an array of papers'); }
+
+            var counts = { ongoing: 0, review: 0, published: 0 };
+            papers.forEach(function (paper) {
+              var key = statusKey(paper && paper.status);
+              if (key) { counts[key] += 1; }
+            });
+
+            setText('count-ongoing', counts.ongoing);
+            setText('count-review', counts.review);
+            setText('count-published', counts.published);
+            setText('metric-active', counts.ongoing + counts.review);
+            setText('metric-published', counts.published);
+          })
+          .catch(function (err) {
+            // Missing or invalid data.json (e.g. before the first sync): leave every count at 0.
+            if (window.console) { console.warn('[index] Could not load data.json:', err); }
+          });
+      }
+
+      safely('menu', initMenu);
+      safely('header state', initHeaderState);
+      safely('year', initYear);
+      safely('hydration', hydrate);
+    });
+  </script>
+</body>
+</html>

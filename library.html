@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artifacts &amp; Code Library | Research Portfolio</title>
+  <meta name="description" content="Every PDF, repository and dataset behind the papers, in one place.">
+  <meta property="og:title" content="Artifacts &amp; Code Library">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Icons: Phosphor (regular weight, used as <i class="ph ph-name">) -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+
+  <!-- Global design system, then the shared archive-page styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Data + search engine -->
+  <script src="archive-engine.js" defer></script>
+</head>
+
+<body data-category="library">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Header & navigation ===== -->
+  <!-- TODO: replace "Your Name" (here and in the footer) with the site owner's name. -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-logo" href="./">Your Name</a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav-drawer" id="nav-drawer" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="index.html#work">Work</a></li>
+          <li><a class="nav-link" href="library.html" aria-current="page">Library</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Page header ===== -->
+    <section class="page-hero container" aria-labelledby="page-title">
+      <a class="back-link" href="index.html#work"><span aria-hidden="true">&larr;</span> All research</a>
+      <h1 id="page-title">Artifacts &amp; Code Library</h1>
+      <p class="lead">Every PDF, repository and dataset behind the papers, in one place.</p>
+    </section>
+
+    <!-- ===== Filter tabs + search ===== -->
+    <section class="archive-toolbar container" aria-label="Filter and search papers">
+      <div class="filter-tabs" role="group" aria-label="Filter publications">
+        <button type="button" id="filter-all" class="btn active" aria-pressed="true">All Publications</button>
+        <button type="button" id="filter-code" class="btn" aria-pressed="false">Code &amp; Datasets</button>
+      </div>
+
+      <div class="search-field" role="search">
+        <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+        <label class="sr-only" for="search-input">Search papers</label>
+        <input type="text" id="search-input" class="search-bar" placeholder="Search papers, topics, or keywords..." autocomplete="off" spellcheck="false" enterkeyhint="search">
+      </div>
+      <p class="archive-status" id="archive-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- ===== Results (populated by archive-engine.js) ===== -->
+    <section class="archive-results container" aria-label="Papers">
+      <div id="archive-grid" class="bento-grid" aria-busy="true"></div>
+    </section>
+  </main>
+
+  <!-- ===== Editorial footer ===== -->
+  <footer class="site-footer">
+    <div class="footer-section">
+      <div class="container">
+        <h2 class="footer-headline">LET&rsquo;S COLLABORATE</h2>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <div class="container">
+        <div class="footer-grid">
+
+          <!-- Col 1: Social. TODO: replace the placeholder profile URLs. -->
+          <div class="footer-col">
+            <p class="footer-label">Elsewhere</p>
+            <ul class="footer-nav">
+              <li><a class="footer-link" href="https://twitter.com/your-handle" target="_blank" rel="noopener noreferrer"><i class="ph ph-twitter-logo" aria-hidden="true"></i>Twitter</a></li>
+              <li><a class="footer-link" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer"><i class="ph ph-linkedin-logo" aria-hidden="true"></i>LinkedIn</a></li>
+              <li><a class="footer-link" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer"><i class="ph ph-github-logo" aria-hidden="true"></i>GitHub</a></li>
+              <li><a class="footer-link" href="https://scholar.google.com/citations?user=your-id" target="_blank" rel="noopener noreferrer"><i class="ph ph-graduation-cap" aria-hidden="true"></i>Google Scholar</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Navigation -->
+          <div class="footer-col">
+            <p class="footer-label">Explore</p>
+            <ul class="footer-nav">
+              <li><a class="footer-link" href="index.html#work">Work</a></li>
+              <li><a class="footer-link" href="ongoing.html">On-going</a></li>
+              <li><a class="footer-link" href="in-review.html">In Review</a></li>
+              <li><a class="footer-link" href="published.html">Published</a></li>
+              <li><a class="footer-link" href="library.html">Library</a></li>
+              <li><a class="footer-link" href="about.html">About</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Email signup / contact. TODO: replace the form action with your form endpoint. -->
+          <div class="footer-col">
+            <p class="footer-label">Stay in the loop</p>
+            <p>New papers and project updates by email.</p>
+            <form class="footer-form" action="https://formspree.io/f/your-form-id" method="post">
+              <label class="sr-only" for="footer-email">Email address</label>
+              <input class="footer-input" id="footer-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+              <button class="btn footer-submit" type="submit" aria-label="Submit email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <div class="container footer-bottom">
+        <p>&copy; <span id="footer-year">2026</span> Your Name</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

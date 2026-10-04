@@ -1,0 +1,10 @@
+{
+  "name": "research-portfolio",
+  "private": true,
+  "scripts": { "sync": "node sync-notion.js" },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "dotenv": "^16.4.5",
+    "slugify": "^1.6.6"
+  }
+}
