@@ -1,5 +1,44 @@
 [
   {
+    "slug": "fl-for-iot",
+    "url": "./fl-for-iot.html",
+    "title": "FL for IoT",
+    "status": "On-going",
+    "abstract": "",
+    "topics": [],
+    "link": null,
+    "bibtex": "",
+    "timeline": [
+      {
+        "type": "paragraph",
+        "text": "2023-01-09: Laid out plan",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      },
+      {
+        "type": "paragraph",
+        "text": "2026-05-07: Built the baselines",
+        "depth": 0
+      }
+    ],
+    "created": "2026-10-04T10:54:00.000Z",
+    "updated": "2026-10-04T12:01:00.000Z"
+  },
+  {
     "slug": "rag-optimization",
     "url": "./rag-optimization.html",
     "title": "RAG Optimization",
